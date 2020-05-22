@@ -1,4 +1,4 @@
-import React, { FC, useState, Fragment } from 'react';
+import React, { FC, useState, useEffect, Fragment } from 'react';
 import Link from 'next/link';
 import { PostInfoProps } from '../../interfaces';
 import {
@@ -23,9 +23,14 @@ const PostInfo: FC<PostInfoProps> = ({ post, updatePost, createComments }) => {
   const { id, title, body, comments } = post;
 
   const [updateStatus, setUpdateStatus] = useState<boolean>(false);
-  const [updateTitle, setUpdateTitle] = useState<string>(title);
-  const [updateBody, setUpdateBody] = useState<string>(body);
+  const [updateTitle, setUpdateTitle] = useState<string>('');
+  const [updateBody, setUpdateBody] = useState<string>('');
   const [commentBody, setCommentBody] = useState<string>('');
+
+  useEffect(() => {
+	  setUpdateTitle(title);
+	  setUpdateBody(body);
+  }, [title, body]);
 
   const updateData = () => {
     if (updateTitle && updateBody) {
